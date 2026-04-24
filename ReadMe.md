@@ -1,5 +1,10 @@
 # NodeMovieApi
 
+> **Database setup:** This API depends on a PostgreSQL database. Use the
+> [Postgres-Movie-Platform](https://github.com/stevenwickers/Postgres-Movie-Platform)
+> repo to create the database, schema, seed data, and stored functions required
+> for this API to work.
+
 `NodeMovieApi` is a local-development Node.js movie API built with Express, TypeScript, PostgreSQL, Swagger, and GraphQL.
 
 The project exposes:
