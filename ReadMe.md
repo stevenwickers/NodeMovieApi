@@ -7,6 +7,15 @@
 
 `NodeMovieApi` is a local-development Node.js movie API built with Express, TypeScript, PostgreSQL, Swagger, and GraphQL.
 
+## 🔍 Select
+![Select](./assets/demo-select.gif)
+
+## ✏️ Update
+![Update](./assets/demo-update.gif)
+
+## 🩹 Patch
+![Patch](./assets/demo-patch.gif)
+
 The project exposes:
 
 - REST endpoints for movies

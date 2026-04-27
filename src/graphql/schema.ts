@@ -59,6 +59,7 @@ const typeDefs = /* GraphQL */ `
     worldwideGross: Float
     productionBudget: Float
     domesticGross: Float
+    genres: [String]
     genreNames: [String]
   }
 

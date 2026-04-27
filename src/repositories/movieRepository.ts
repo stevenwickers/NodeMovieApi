@@ -130,16 +130,21 @@ export class MovieRepository implements IRepo<MovieRequest, MovieResponse> {
   async create(request: MovieRequest): Promise<string> {
     const result = await pool.query(
       `
-      SELECT wickers.create_movie(
-        $1, $2, $3, $4, $5, $6, $7
-      ) AS id;
+      SELECT id
+      FROM wickers.create_movie(
+        p_movie_name => $1::text,
+        p_release_date => $2::date,
+        p_worldwide_gross => $3::numeric,
+        p_production_budget => $4::numeric,
+        p_domestic_gross => $5::numeric,
+        p_genre_names => $6::text[]
+      );
       `,
       [
         request.movieName,
         request.releaseDate,
         request.worldwideGross ?? null,
         request.productionBudget ?? null,
-        request.movieLink ?? null,
         request.domesticGross ?? null,
         request.genres ?? [],
       ]
@@ -157,8 +162,17 @@ export class MovieRepository implements IRepo<MovieRequest, MovieResponse> {
   async update(id: string, request:MovieRequest):Promise<boolean> {
     const result = await pool.query(
       `
-      SELECT wickers.update_movie(
-        $1, $2, $3, $4, $5, $6, $7, $8
+      SELECT EXISTS (
+        SELECT 1
+        FROM wickers.update_movie(
+          p_movie_id => $1::uuid,
+          p_movie_name => $2::text,
+          p_release_date => $3::date,
+          p_worldwide_gross => $4::numeric,
+          p_production_budget => $5::numeric,
+          p_domestic_gross => $6::numeric,
+          p_genre_names => $7::text[]
+        )
       ) AS updated;
       `,
       [
@@ -167,7 +181,6 @@ export class MovieRepository implements IRepo<MovieRequest, MovieResponse> {
         request.releaseDate,
         request.worldwideGross ?? null,
         request.productionBudget ?? null,
-        request.movieLink ?? null,
         request.domesticGross ?? null,
         request.genres ?? [],
       ]
@@ -292,9 +305,21 @@ function buildPatchPayload(request: MoviePatchRequest): Record<string, unknown> 
   addIfDefined(payload, "worldwide_gross", request.worldwideGross);
   addIfDefined(payload, "production_budget", request.productionBudget);
   addIfDefined(payload, "domestic_gross", request.domesticGross);
-  addIfDefined(payload, "genre_names", request.genreNames);
+  addIfDefined(payload, "genre_names", resolvePatchGenres(request));
 
   return payload;
+}
+
+function resolvePatchGenres(request: MoviePatchRequest): (string | null)[] | undefined {
+  if (request.genres !== undefined) {
+    return request.genres ?? [];
+  }
+
+  if (request.genreNames !== undefined) {
+    return request.genreNames ?? [];
+  }
+
+  return undefined;
 }
 
 function addIfDefined(
