@@ -32,6 +32,8 @@ A TypeScript-based backend API demonstrating **REST + GraphQL parity**, advanced
 
 This project demonstrates how **REST and GraphQL can share the same repository layer and PostgreSQL functions**—avoiding duplicated business logic while supporting multiple API paradigms.
 
+---
+
 ## 🏗️ Platform Architecture
 
 ```mermaid
@@ -70,8 +72,6 @@ class Functions,Tables data;
 ```
 
 This repository is the **Node.js / TypeScript implementation** of a multi-stack movie platform that shares a common PostgreSQL function layer with the .NET API.
-
----
 
 ## ⚙️ Tech Stack
 
