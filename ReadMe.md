@@ -10,6 +10,10 @@ A TypeScript-based backend API demonstrating **REST + GraphQL parity**, advanced
 
 ![Fetch Movies](./assets/demo-select.gif)
 
+### ✨ Create Movie
+
+![Create Move](./assets/demo-create.gif)
+
 ### ✏️ Update Movie
 
 ![Update Movie](./assets/demo-update.gif)
