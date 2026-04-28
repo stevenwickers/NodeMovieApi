@@ -20,3 +20,9 @@ export const validationErrorResponseSchema = z.object({
 export const idResponseSchema = z.object({
   id: z.string().uuid(),
 });
+
+export const deleteResponseSchema = z.object({
+  deleted: z.boolean(),
+  message: z.string().optional(),
+  correlationId: z.string().optional(),
+});

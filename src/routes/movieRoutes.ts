@@ -125,12 +125,13 @@ router.delete("/:id", async (req, res, next) => {
 
     if (!deleted) {
       return res.status(404).json({
+        deleted,
         message: "Movie not found.",
         correlationId: req.correlationId,
       });
     }
 
-    return res.status(204).send();
+    return res.status(200).json({ deleted });
   }catch(error) {
     next(error)
   }

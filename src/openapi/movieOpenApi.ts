@@ -5,6 +5,7 @@ import {
   errorResponseSchema,
   validationErrorResponseSchema,
   idResponseSchema,
+  deleteResponseSchema,
 } from "../schemas/commonSchemas.js";
 
 export function registerMovieOpenApi(registry: OpenAPIRegistry): void {
@@ -14,6 +15,7 @@ export function registerMovieOpenApi(registry: OpenAPIRegistry): void {
   registry.register("ErrorResponse", errorResponseSchema);
   registry.register("ValidationErrorResponse", validationErrorResponseSchema);
   registry.register("IdResponse", idResponseSchema);
+  registry.register("DeleteResponse", deleteResponseSchema);
 
   registry.registerPath({
     method: "get",
@@ -217,14 +219,19 @@ Retrieve movies with optional search, filtering, sorting, and pagination.
       }),
     },
     responses: {
-      204: {
+      200: {
         description: "Movie deleted successfully",
+        content: {
+          "application/json": {
+            schema: deleteResponseSchema,
+          },
+        },
       },
       404: {
         description: "Movie not found",
         content: {
           "application/json": {
-            schema: errorResponseSchema,
+            schema: deleteResponseSchema,
           },
         },
       },

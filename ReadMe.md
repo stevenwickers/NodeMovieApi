@@ -1,82 +1,84 @@
-# NodeMovieApi
+# 🎬 NodeMovieApi
 
-> **Database setup:** This API depends on a PostgreSQL database. Use the
-> [Postgres-Movie-Platform](https://github.com/stevenwickers/Postgres-Movie-Platform)
-> repo to create the database, schema, seed data, and stored functions required
-> for this API to work.
+A TypeScript-based backend API demonstrating **REST + GraphQL parity**, advanced filtering, and PostgreSQL-powered query logic.
 
-`NodeMovieApi` is a local-development Node.js movie API built with Express, TypeScript, PostgreSQL, Swagger, and GraphQL.
+---
 
-## 🔍 Select
-![Select](./assets/demo-select.gif)
+## 🎬 Demo
 
-## ✏️ Update
-![Update](./assets/demo-update.gif)
+### 🔍 Fetch Movies
 
-## 🩹 Patch
-![Patch](./assets/demo-patch.gif)
+![Fetch Movies](./assets/demo-select.gif)
 
-The project exposes:
+### ✏️ Update Movie
 
-- REST endpoints for movies
-- REST endpoints for genres
-- A GraphQL endpoint for querying movies and patching movie data
-- Swagger UI for exploring the REST API
-- Request logging, correlation IDs, CORS, and centralized error handling
+![Update Movie](./assets/demo-update.gif)
 
-## Tech Stack
+### 🩹 Patch Movie
 
-- Node.js
-- TypeScript
-- Express 5
-- PostgreSQL via `pg`
-- GraphQL Yoga
-- Swagger / OpenAPI
-- Zod
-- Pino
+![Patch Movie](./assets/demo-patch.gif)
 
-## Features
+### 🗑️ Delete Movie
 
-- Browse, create, update, patch, and delete movies
-- Browse genres and fetch a genre by ID
-- Filter and paginate movie results
-- Sort movie results by supported columns
-- Query movies through GraphQL
-- Patch movie records through a GraphQL mutation-backed repository method
+![Delete Movie](./assets/demo-delete.gif)
 
-## Endpoints
+---
+
+## ⭐ Key Concept
+
+This project demonstrates how **REST and GraphQL can share the same repository layer and PostgreSQL functions**—avoiding duplicated business logic while supporting multiple API paradigms.
+
+---
+
+## ⚙️ Tech Stack
+
+* **Node.js + TypeScript**
+* **Express 5**
+* **PostgreSQL** (stored procedures / functions)
+* **GraphQL Yoga**
+* **Swagger / OpenAPI**
+* **Zod** (validation)
+* **Pino** (structured logging)
+
+---
+
+## 🚀 Features
+
+* Full CRUD for movies (REST + GraphQL)
+* Advanced filtering, sorting, and pagination
+* Shared repository layer across REST and GraphQL
+* PostgreSQL-backed query logic via functions
+* Centralized error handling with correlation IDs
+* Request logging and CORS support
+* Swagger UI for REST exploration
+
+---
+
+## 📡 API Overview
 
 ### REST
 
-- `GET /movies`
-- `GET /movies/{id}`
-- `POST /movies`
-- `PUT /movies/{id}`
-- `PATCH /movies/{id}`
-- `DELETE /movies/{id}`
-- `GET /health`
-- `GET /genres`
-- `GET /genres/{id}`
-- `GET /` redirects to Swagger UI
+* `GET /movies`
+* `GET /movies/{id}`
+* `POST /movies`
+* `PUT /movies/{id}`
+* `PATCH /movies/{id}`
+* `DELETE /movies/{id}`
+* `GET /genres`
+* `GET /genres/{id}`
+* `GET /health`
 
-Swagger UI is available at:
+👉 Swagger UI:
+`http://localhost:5001/swagger`
 
-- `http://localhost:5001/swagger`
+---
 
 ### GraphQL
 
-GraphQL is enabled through GraphQL Yoga and is mapped at:
+* `GET /graphql`
+* `POST /graphql`
 
-- `GET /graphql`
-- `POST /graphql`
-
-Current GraphQL operations include:
-
-- Query movies with optional filters
-- Query a movie by ID
-- Update a movie using a patch request
-
-Example query:
+#### Example Query
 
 ```graphql
 query {
@@ -93,7 +95,7 @@ query {
 }
 ```
 
-Example mutation:
+#### Example Mutation
 
 ```graphql
 mutation {
@@ -109,45 +111,36 @@ mutation {
 }
 ```
 
-## Movie Query Support
+---
 
-The `GET /movies` endpoint supports:
+## 🧠 Query Capabilities
 
-- `search`
-- `searchMode`
-- `page`
-- `pageSize`
-- `sortBy`
-- `sortDirection`
-- `releaseDateFrom`
-- `releaseDateTo`
-- `worldwideGrossMin`
-- `worldwideGrossMax`
-- `productionBudgetMin`
-- `productionBudgetMax`
-- `domesticGrossMin`
-- `domesticGrossMax`
-- `genres`
+The `/movies` endpoint supports:
 
-Supported `searchMode` values:
+* Search (`general`, `starts`, `ends`, `contains`)
+* Pagination (`page`, `pageSize`)
+* Sorting (`sortBy`, `sortDirection`)
+* Date range filtering
+* Financial filters (budget, gross)
+* Genre filtering
 
-- `general`
-- `starts`
-- `ends`
-- `contains`
+---
 
-## Running Locally
-
-This project is intended as a local development proof of concept.
+## 🛠️ Running Locally
 
 ### Requirements
 
-- Node.js
-- PostgreSQL running locally
+* Node.js
+* PostgreSQL
 
-### Configuration
+### Setup
 
-Create a `.env` file:
+```bash
+npm install
+npm run dev
+```
+
+### Environment
 
 ```env
 NODE_ENV=development
@@ -156,53 +149,31 @@ CORS_ALLOW_ORIGINS=http://localhost:5173,http://localhost:3000
 POSTGRES_CONNECTION_STRING=postgresql://user:password@localhost:55432/wickers_db
 ```
 
-### Start the API
-
-```bash
-npm install
-npm run dev
-```
-
-## Notes
-
-- REST and GraphQL both use the same repository layer and PostgreSQL functions.
-- GraphQL patching is backed by `wickers.update_graphql_movie`.
-- Unhandled REST errors return a correlation ID for tracing.
-  schemas/
-  openapi/
-  middleware/
-  utils/
-  contracts/
-```
-
 ---
 
 ## 🔗 Related Project
 
-👉 **postgres-movie-platform**
-
-This API depends on the PostgreSQL data platform that:
-
-* provisions schema
-* seeds data
-* exposes database functions
+👉 PostgreSQL Data Platform (schema, seed data, functions):
+https://github.com/stevenwickers/Postgres-Movie-Platform
 
 ---
 
-## 💼 Resume Highlight
+## 💡 Highlights
 
-> Built a Node.js API using TypeScript, PostgreSQL stored procedures, Zod validation, and Pino logging, with full OpenAPI documentation and reproducible environment setup.
+* Demonstrates **real-world backend architecture patterns**
+* Shows **GraphQL + REST coexistence without duplication**
+* Uses **PostgreSQL functions for complex querying**
+* Designed as a **portfolio-ready API with production-style concerns**
 
 ---
 
 ## 🚀 Future Enhancements
 
 * React frontend integration
-* Pagination & sorting
 * Authentication (JWT)
 * Rate limiting
+* Dockerized full-stack environment
 * C# API parity
-* Full stack Docker orchestration
 
 ---
 
@@ -216,4 +187,4 @@ React • TypeScript • Node • C# • PostgreSQL • Cloud
 
 ## 🔍 Keywords
 
-Node.js API, TypeScript backend, PostgreSQL stored procedures, Swagger API, OpenAPI, Zod validation, Pino logging, Express API, REST API, backend architecture
+Node.js API, TypeScript backend, PostgreSQL, GraphQL, REST API, Swagger, OpenAPI, backend architecture
