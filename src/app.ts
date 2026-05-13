@@ -2,7 +2,6 @@ import express, { type Request, type Response } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { createYoga } from "graphql-yoga";
-
 import {env, logger, openApiDocument} from "./config/index.js";
 import { createGraphQLContext, graphQLSchema } from "./graphql/schema.js";
 import genreRoutes from "./routes/genreRoutes.js";

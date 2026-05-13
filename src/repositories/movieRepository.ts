@@ -112,21 +112,6 @@ export class MovieRepository implements IRepo<MovieRequest, MovieResponse> {
     return result.rows[0] ? mapMovieResponse(result.rows[0]) : null;
   }
 
-  async searchGeneral(search: string): Promise<MovieResponse[]> {
-    const result = await pool.query("" +
-      "SELECT * FROM wickers.search_movies_general($1)", [search]);
-
-    return result.rows.map(mapMovieResponse);
-  }
-
-  async searchAdvanced(search: string, type: 'starts' | 'ends' | 'contains') : Promise<MovieResponse[]> {
-    const result = await pool.query(
-      "SELECT * FROM wickers.search_movies_advanced($1, $2)",
-      [search, type]
-    );
-    return result.rows.map(mapMovieResponse);
-  }
-
   async create(request: MovieRequest): Promise<string> {
     const result = await pool.query(
       `

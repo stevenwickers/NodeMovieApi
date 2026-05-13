@@ -1,5 +1,6 @@
 import { createSchema } from "graphql-yoga";
 import type { Request, Response } from "express";
+import { GraphQLError, GraphQLScalarType, Kind } from "graphql";
 
 import { MovieRepository } from "../repositories/movieRepository.js";
 import { moviePatchRequestSchema } from "../schemas/moviePatchRequest.js";
@@ -12,8 +13,10 @@ type GraphQLContext = {
 };
 
 const typeDefs = /* GraphQL */ `
+  scalar UUID
+
   type MovieResponse {
-    id: ID!
+    id: UUID!
     movieName: String!
     releaseDate: String!
     worldwideGross: Float
@@ -53,6 +56,16 @@ const typeDefs = /* GraphQL */ `
     genres: [String!]
   }
 
+  input MoviePatchRequestInput {
+    movieName: String
+    releaseDate: String
+    worldwideGross: Float
+    productionBudget: Float
+    domesticGross: Float
+    genres: [String]
+    genreNames: [String]
+  }
+
   input MoviePatchInput {
     movieName: String
     releaseDate: String
@@ -65,17 +78,43 @@ const typeDefs = /* GraphQL */ `
 
   type Query {
     movies(filters: MovieFiltersInput): PagedMovieResponse!
-    movieById(id: ID!): MovieResponse
+    movieById(id: UUID!): MovieResponse
   }
 
   type Mutation {
-    updateMovie(id: ID!, patch: MoviePatchInput!): MovieResponse!
+    updateMovie(id: UUID!, patch: MoviePatchRequestInput!): MovieResponse!
   }
 `;
+
+const uuidPattern =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const parseUuid = (value: unknown): string => {
+  if (typeof value !== "string" || !uuidPattern.test(value)) {
+    throw new GraphQLError("UUID must be a valid UUID string.");
+  }
+
+  return value;
+};
+
+const uuidScalar = new GraphQLScalarType({
+  name: "UUID",
+  description: "A UUID string.",
+  serialize: parseUuid,
+  parseValue: parseUuid,
+  parseLiteral(ast) {
+    if (ast.kind !== Kind.STRING) {
+      throw new GraphQLError("UUID must be a valid UUID string.");
+    }
+
+    return parseUuid(ast.value);
+  },
+});
 
 export const graphQLSchema = createSchema({
   typeDefs,
   resolvers: {
+    UUID: uuidScalar,
     Query: {
       movies: async (
         _parent: unknown,
