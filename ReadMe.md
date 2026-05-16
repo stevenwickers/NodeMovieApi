@@ -4,6 +4,11 @@ A TypeScript-based backend API demonstrating **REST + GraphQL parity**, advanced
 
 ---
 
+## 🎥 Architecture Walkthrough
+
+[![Postgres Movie Platform Walkthrough](./assets/Banner-HS.png)](https://www.youtube.com/watch?v=GLjxuYa2Ttc)
+
+
 ## 🎬 Demo
 
 ### 🔍 Fetch Movies
@@ -194,10 +199,23 @@ POSTGRES_CONNECTION_STRING=postgresql://user:password@localhost:55432/wickers_db
 
 ---
 
-## 🔗 Related Project
+## 🔗 Related Projects
 
-👉 PostgreSQL Data Platform (schema, seed data, functions):
-https://github.com/stevenwickers/Postgres-Movie-Platform
+### 🎬 [DotNetMovieApi](https://www.youtube.com/watch?v=q-9eWAzOLdA)
+ASP.NET Core Minimal API implementation built on top of the Postgres Movie Platform, exposing shared PostgreSQL functions through REST and GraphQL endpoints.
+[Project](https://github.com/stevenwickers/DotNetMovieApi)
+
+### 🖥 [Movie-UI-Dashboard](https://www.youtube.com/watch?v=0U7bPBvNf9Y)
+React + TypeScript frontend application showcasing REST and GraphQL integration, advanced filtering, pagination, sorting, and reusable UI architecture.
+[Project](https://github.com/stevenwickers/Movie-UI-Dashboard)
+
+### 🧠 [DevAssist-AI](https://www.youtube.com/watch?v=m34JRMG6SjQ)
+Production-minded Retrieval-Augmented Generation (RAG) application using OpenAI embeddings, semantic retrieval, and centralized AI orchestration workflows.
+[project](https://github.com/stevenwickers/DevAssist-AI)
+
+### 🐘 [Postgres Movie Platform](https://www.youtube.com/watch?v=QpMMaJEFxmc)
+Centralized PostgreSQL data platform featuring Dockerized infrastructure, overloaded SQL functions, reusable query architecture, and shared business logic powering multiple APIs and applications.
+[project](https://github.com/stevenwickers/Postgres-Movie-Platform)
 
 ---
 
@@ -220,10 +238,17 @@ https://github.com/stevenwickers/Postgres-Movie-Platform
 
 ---
 
+## 📬 Contact
+
+* 💼 [LinkedIn](https://www.linkedin.com/in/stevenwickers/)
+* ▶️ [YouTube](https://www.youtube.com/@StevenWickersEngineering)
+* 🌐 [Portfolio](https://stevenwickers.com/)
+* 📧 Email: [stevenwickers@gmail.com](mailto:stevenwickers@gmail.com)
+
 ## 👨‍💻 Author
 
-**Steven Wickers**
-Senior / Lead Frontend Engineer
+Steven Wickers
+Senior Frontend Engineer
 React • TypeScript • Node • C# • PostgreSQL • Cloud
 
 ---
